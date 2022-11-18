@@ -59,6 +59,29 @@ public class ArticleBusinessTests
         var result = business.FindArticle(articleId);
         Assert.Null(result);        
     }
+    [Fact]
+    public void AddArticle_normal(){
+        //arrange
+        var article = new Article(){
+            Title = "Article 4"
+        };
+        //act
+        var result = _business.AddArticle(article);
+        //Assert
+        Assert.Equal(result ,"");
+    }
+    [Fact]
+    public void AddArticle_shouldReturnErrorWhenIdIsGiven(){
+        //arrange
+        var article = new Article(){
+            Id=4,
+            Title="Article 4"
+        };
+        //act
+        var result = _business.AddArticle(article);
+        //Assert
+        Assert.Equal(result , "Error");
+    }
 }
 
 public class ArticleBusiness
@@ -79,6 +102,11 @@ public class ArticleBusiness
     public Article FindArticle(int articleId)
     {
         return @object.FindArticle(articleId);
+    }
+
+    public string AddArticle(Article article)
+    {
+        return article.Id == 0 ? "":"Error";
     }
 }
 
